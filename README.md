@@ -12,4 +12,5 @@ My personal Azure-Resume, Inspired by the Cloud Resume Challenge
 - Configured vscode folder structure
 - Edit HTML and Style CSS
 - Add personal resume details
+- Creat the main.js visitor counter code
 - Complete first Git push!
