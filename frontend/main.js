@@ -5,16 +5,16 @@ window.addEventListener('DOMContentLoaded', (event) =>{
 
 const functionApi = 'http://localhost:7071/api/KWCounterTrigger1';
 
-function getVisitCount() {
- let count = 30;
- fetch(functionApi).then(response => {
-  return response.json();
- }).then(response => {
-  console.log("Website caled functionAPI");
-  count = response.count;
-  document.getElementById("counter").innerText = count;
- }).catch(function (error) {
-  console.log(error);
- });
- return count;
+const getVisitCount = () => {
+       let count = 30;
+       fetch(functionApi).then(response => {
+          return response.json()
+       }).then(response =>{
+            console.log("Website caled functionAPI")
+            count = response.count;
+            document.getElementById("counter").innerText = count;
+       }).catch(function(error){
+           console.log(error);
+       });
+       return count; 
 }
