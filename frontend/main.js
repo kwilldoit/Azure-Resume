@@ -10,11 +10,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
-const functionApi = 'http://localhost:7071/api/KWCounterTrigger1';
+const LocalfunctionApi = 'http://localhost:7071/api/KWCounterTrigger1';
 
+const functionApiURL = 'https://kwcounter.azurewebsites.net/api/KWCounterTrigger1?code=93VEOQLwJ3uFL2KbbStQweCSWBNdeUYMHy7bSSeu8_5GAzFuZSf6bw==';
 const getVisitCount = async () => {
     try {
-        const response = await fetch(functionApi);
+        const response = await fetch(functionApiURL);
 
         if (!response.ok) {
             throw new Error("Network response was not ok");
