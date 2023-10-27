@@ -13,15 +13,10 @@ jobs:
       - name: "Checkout Code"
         uses: actions/checkout@v2
 
-      - name: "Azure Login"
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: "Set Up Python"
         uses: actions/setup-python@v2
         with:
-          python-version: 3.11.4 # Change to the version of Python you're using
+          python-version: 3.11.4
 
       - name: "Install Azure Functions Core Tools"
         run: |
@@ -41,6 +36,6 @@ jobs:
           cd api/KwResumeCounterFunction/KWCounterTrigger1
           func azure functionapp publish ${{ env.AZURE_FUNCTIONAPP_NAME }}
         env:
-          AZURE_FUNCTIONAPP_NAME: KwCounter # Replace with your actual Azure Function App name
+          AZURE_FUNCTIONAPP_NAME: KwCounter
           AzureWebJobsStorage: ${{ secrets.AzureWebJobsStorage }}
           AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
