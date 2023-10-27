@@ -36,6 +36,6 @@ jobs:
           cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           func azure functionapp publish ${{ env.AZURE_FUNCTIONAPP_NAME }}
         env:
-          AZURE_FUNCTIONAPP_NAME: ${{ secrets.AZURE_FUNCTIONAPP_NAME }}
+          AZURE_FUNCTIONAPP_NAME: KwCounter # Replace with your actual Azure Function App name
           AzureWebJobsStorage: ${{ secrets.AzureWebJobsStorage }}
           AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
