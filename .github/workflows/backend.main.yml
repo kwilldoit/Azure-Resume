@@ -3,7 +3,7 @@ name: Deploy_backend
 on:
   push:
     branches: [main]
-    path:
+    paths:
       - "backend/**"
 
 jobs:
@@ -26,14 +26,14 @@ jobs:
 
       - name: "Install Dependencies"
         run: |
-          cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/api
+          cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           pip install -r requirements.txt
         env:
-          AZURE_FUNCTIONAPP_PACKAGE_PATH: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          AZURE_FUNCTIONAPP_PACKAGE_PATH: "C:\\Users\\Kdouble0\\Azure-Resume\\backend\\api\\KwResumeCounterFunction\\KWCounterTrigger1"
 
       - name: "Deploy Azure Function"
         run: |
-          cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/api
+          cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           func azure functionapp publish ${{ env.AZURE_FUNCTIONAPP_NAME }}
         env:
           AZURE_FUNCTIONAPP_NAME: ${{ secrets.AZURE_FUNCTIONAPP_NAME }}
