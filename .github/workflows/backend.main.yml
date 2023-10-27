@@ -9,38 +9,38 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-        - name: "Checkout Code"
-          uses: actions/checkout@v2
+      - name: "Checkout Code"
+        uses: actions/checkout@v2
 
-        - name: "Set Up Python"
-          uses: actions/setup-python@v2
-          with:
-            python-version: 3.11.4 # Change to the version of Python you're using
+      - name: "Set Up Python"
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11.4 # Change to the version of Python you're using
 
-        - name: "Install Azure Functions Core Tools"
-          run: |
-            npm install -g azure-functions-core-tools@3 --unsafe-perm true
-          env:
-            AZURE_FUNCTIONS_CORETOOLS_PATH: "/usr/local/lib/node_modules/azure-functions-core-tools"
+      - name: "Install Azure Functions Core Tools"
+        run: |
+          npm install -g azure-functions-core-tools@3 --unsafe-perm true
+        env:
+          AZURE_FUNCTIONS_CORETOOLS_PATH: "/usr/local/lib/node_modules/azure-functions-core-tools"
 
-        - name: "Install Dependencies"
-          run: |
-            cd api/KwResumeCounterFunction/KWCounterTrigger1
-            pip install -r requirements.txt
-          env:
-            AZURE_FUNCTIONAPP_PACKAGE_PATH: "api/KwResumeCounterFunction/KWCounterTrigger1"
+      - name: "Install Dependencies"
+        run: |
+          cd api/KwResumeCounterFunction/KWCounterTrigger1
+          pip install -r requirements.txt
+        env:
+          AZURE_FUNCTIONAPP_PACKAGE_PATH: "api/KwResumeCounterFunction/KWCounterTrigger1"
 
-        - name: "Deploy Azure Function"
-          run: |
-            cd api/KwResumeCounterFunction/KWCounterTrigger1
-            func azure functionapp publish ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          env:
-            AZURE_FUNCTIONAPP_NAME: KwCounter # Replace with your actual Azure Function App name
-            AzureWebJobsStorage: ${{ secrets.AzureWebJobsStorage }}
-            AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: "Deploy Azure Function"
+        run: |
+          cd api/KwResumeCounterFunction/KWCounterTrigger1
+          func azure functionapp publish ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        env:
+          AZURE_FUNCTIONAPP_NAME: KwCounter # Replace with your actual Azure Function App name
+          AzureWebJobsStorage: ${{ secrets.AzureWebJobsStorage }}
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
