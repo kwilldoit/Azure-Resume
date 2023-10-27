@@ -7,22 +7,17 @@ on:
     paths:
       - "backend/**"
 
-env:
-  AZURE_FUNCTIONAPP_NAME: "KwCounter" # Set this to your Azure Function App name
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: "backend" # Set this to the path to your function app project, defaults to the repository root
-  AZURE_FUNCTIONAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout GitHub Action"
+      - name: "Checkout Code"
         uses: actions/checkout@v2
 
-      - name: "Set up Python"
+      - name: "Set Up Python"
         uses: actions/setup-python@v2
         with:
-          python-version: 3.11.4 # Adjust to your Python version
+          python-version: 3.11.4 # Change to the version of Python you're using
 
       - name: "Install Azure Functions Core Tools"
         run: |
@@ -30,10 +25,18 @@ jobs:
         env:
           AZURE_FUNCTIONS_CORETOOLS_PATH: "/usr/local/lib/node_modules/azure-functions-core-tools"
 
-      - name: "Build and Deploy Azure Function"
+      - name: "Install Dependencies"
         run: |
           cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/api
-          func azure functionapp publish ${{ env.AZURE_FUNCTIONAPP_NAME }} --publish-local-settings
+          pip install -r requirements.txt
         env:
+          AZURE_FUNCTIONAPP_PACKAGE_PATH: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
+      - name: "Deploy Azure Function"
+        run: |
+          cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/api
+          func azure functionapp publish ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        env:
+          AZURE_FUNCTIONAPP_NAME: ${{ secrets.AZURE_FUNCTIONAPP_NAME }}
           AzureWebJobsStorage: ${{ secrets.AzureWebJobsStorage }}
-          FUNCTION_APP_ROOT: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/api
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
