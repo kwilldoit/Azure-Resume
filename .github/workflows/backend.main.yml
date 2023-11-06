@@ -44,4 +44,4 @@ jobs:
           enable-oryx-build: true
 
       - name: Run Cypress Tests
-        run: npx cypress run --spec cypress/e2e/azure-resumetest.cy.js
+        run: npx cypress run --spec cypress/e2e/azure-resumetest.cy.js #updates permissions
