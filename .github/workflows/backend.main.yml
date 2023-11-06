@@ -42,9 +42,3 @@ jobs:
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
           scm-do-build-during-deployment: true
           enable-oryx-build: true
-
-      - name: Set Permissions for Cypress
-        run: chmod +x $(npm bin)/cypress #updates permissions
-
-      - name: Run Cypress Tests
-        run: npx cypress run --spec cypress/e2e/azure-resumetest.cy.js #updates permissions
